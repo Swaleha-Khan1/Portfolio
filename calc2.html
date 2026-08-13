@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .calculator{
+            height: auto;
+            width: 70vh;
+            background-color: rgb(28, 26, 26);
+            border-radius: 20px;
+            padding: 20px;
+        }
+        
+        #display{
+            width: 100%;
+            height: 60px;
+            margin-top: 10px;
+            font-size: 2rem;
+            text-align: left;
+            background-color: rgb(67, 64, 64);
+            color: white;
+        }
+        button{
+            margin:10px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50px;
+            border: none;
+            background-color: rgb(57, 56, 56);
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: hsl(0,0%,40%);
+        }
+        button:active{
+            background-color:hsl(0,0%,50%);
+        }
+        .operator-btn{
+            background-color: rgb(244, 140, 36);
+        }
+        table{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <div class="calculator">
+        <input id="display" type="text" readonly placeholder="0">
+        <div id="keys">
+            <table>
+                <tr>
+                    <th><button onclick="appendtodisplay('+')" class="operator-btn">+</button></th>
+                    <th><button onclick="appendtodisplay('7')">7</button></th>
+                    <th><button onclick="appendtodisplay('8')">8</button></th>
+                    <th><button onclick="appendtodisplay('9')">9</button></th>
+                </tr>
+                <tr>
+                    <th><button onclick="appendtodisplay('-')" class="operator-btn">-</button></th>
+                    <th><button onclick="appendtodisplay('4')">4</button></th>
+                    <th><button onclick="appendtodisplay('5')">5</button></th>
+                    <th><button onclick="appendtodisplay('6')">6</button></th>
+                </tr>
+                <tr>
+                    <th><button onclick="appendtodisplay('*')" class="operator-btn">*</button></th>
+                    <th><button onclick="appendtodisplay('1')">1</button></th>
+                    <th><button onclick="appendtodisplay('2')">2</button></th>
+                    <th><button onclick="appendtodisplay('3')">3</button></th>
+                </tr>
+                <tr>
+                    <th><button onclick="appendtodisplay('/')" class="operator-btn">/</button></th>
+                    <th><button onclick="appendtodisplay('.')">.</button></th>
+                    <th><button onclick="appendtodisplay('0')">0</button></th>
+                    <th><button onclick="calc()">=</button></th>
+                </tr>
+                <tr>
+                    <th><button onclick="cleardisplay()" class="operator-btn">C</button></th>
+                </tr>
+            </table>
+         
+        </div>
+    </div>
+    </center>
+
+    <script>
+        function appendtodisplay(input){
+            document.getElementById("display").value+=input;
+        }
+        function cleardisplay(){
+            document.getElementById("display").value="";
+        }
+        function calc(){
+            let expression = document.getElementById("display").value;
+            let parts = expression.split(/([+\-*/])/);
+
+            let num1 = parseFloat(parts[0]);
+            let opr = parts[1];
+            let num2 = parseFloat(parts[2]);
+
+            let result;
+
+            switch(opr){
+                case "+": result = num1+num2; break;
+                case "*": result = num1*num2; break;
+                case "-": result = num1-num2; break;
+                case "/":
+                    if(num2!=0){
+                        result=num1/num2;
+                    } 
+                    else{
+                        result="Cannot divide by zero";
+                    }
+                    break;
+                default:
+                    result="Error";
+            }
+        document.getElementById("display").value=result;
+        }
+
+    </script>
+</body>
+</html>
